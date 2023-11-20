@@ -1,10 +1,30 @@
+"use client"
+
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { auth } from "../../firebase/firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+
 const Register = () => {
 
     const [username, setUsername] = useState(null);
     const [email, setEmail] = useState(null)
     const [password, SetPassword] = useState(null)
+
+    const signupHandler = async () => {
+        if (!username || !email || !password) return;
+        try {
+            const user = await createUserWithEmailAndPassword(auth, email, password)
+            console.log(user)
+        } catch (error) {
+
+            console.log("An ERROR occured", error)
+        }
+
+        await updateProfile(auth.currentUser, {
+            displayName: username
+        })
+    }
     return (
         <main className="flex lg:h-[100vh]">
             <div className="w-full lg:w-[60%] p-8 md:p-14 flex items-center justify-center lg:justify-start">
@@ -33,13 +53,17 @@ const Register = () => {
                             <input
                                 type="text"
                                 className="border-b border-black p-4 pt-0 outline-0 focus-within:border-blue-400"
+                                required
+                                onChange={(e) => setUsername(e.target.value)}
                             />
                         </div>
                         <div className="mt-10 pl-1 flex flex-col">
                             <label>Email</label>
                             <input
-                                type="text"
+                                type="email"
                                 className="border-b border-black p-4 pt-0 outline-0 focus-within:border-blue-400"
+                                required
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
                         <div className="mt-10 pl-1 flex flex-col">
@@ -47,9 +71,13 @@ const Register = () => {
                             <input
                                 type="password"
                                 className="border-b border-black p-4 pt-0 outline-0 focus-within:border-blue-400"
+                                required
+                                onChange={(e) => SetPassword(e.target.value)}
                             />
                         </div>
-                        <button className="bg-black text-white w-44 py-4 mt-10 rounded-full transition-transform hover:bg-black/[0.8] active:scale-90">
+                        <button
+                            onClick={signupHandler}
+                            className="bg-black text-white w-44 py-4 mt-10 rounded-full transition-transform hover:bg-black/[0.8] active:scale-90">
                             Sign Up
                         </button>
                     </form>
