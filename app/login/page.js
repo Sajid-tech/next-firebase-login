@@ -1,11 +1,16 @@
 "use client"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { auth } from "../../firebase/firebase";
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import Link from "next/link";
+
 
 
 const Login = () => {
+
+
+
     const provider = new GoogleAuthProvider()
 
     const [email, setEmail] = useState(null)
@@ -46,9 +51,11 @@ const Login = () => {
                     <h1 className="text-6xl font-semibold">Login</h1>
                     <p className="mt-6 ml-1">
                         Don't have an account ?{" "}
-                        <span className="underline hover:text-blue-400 cursor-pointer">
+                        <Link
+                            href="/register"
+                            className="underline hover:text-blue-400 cursor-pointer">
                             Sign Up
-                        </span>
+                        </Link>
                     </p>
 
                     <div

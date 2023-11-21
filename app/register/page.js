@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { auth } from "../../firebase/firebase";
 import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import Link from "next/link";
 
 const Register = () => {
 
@@ -47,9 +48,11 @@ const Register = () => {
                     <h1 className="text-6xl font-semibold">Sign Up</h1>
                     <p className="mt-6 ml-1">
                         Already have an account ?{" "}
-                        <span className="underline hover:text-blue-400 cursor-pointer">
+                        <Link
+                            href="/login"
+                            className="underline hover:text-blue-400 cursor-pointer">
                             Login
-                        </span>
+                        </Link>
                     </p>
 
                     <div
